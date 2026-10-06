@@ -10,4 +10,21 @@ export default class Cart {
     get items(): Buyable[] {
         return [...this._items];
     }
+
+    getTotalPrice(): number {
+        let totalPrice = 0;
+        for (const item of this._items) {
+            totalPrice += item.price;
+        }
+        return totalPrice;
+    }
+
+    getTotalPriceWithDiscount(discount: number): number {
+        const totalPrice = this.getTotalPrice();
+        return totalPrice - (totalPrice * discount / 100);
+    }
+
+    deleteItem(id: number): void {
+        this._items = this._items.filter(item => item.id !== id);
+    }
 }
